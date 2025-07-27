@@ -2,7 +2,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import dotenv from 'dotenv'
 dotenv.config()
 
-// Configuration
+// Only Cloudinary config, no local file logic.
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_APP_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
