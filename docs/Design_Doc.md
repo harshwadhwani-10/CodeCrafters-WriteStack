@@ -2,10 +2,10 @@
 
 **Members:**
 
-- harsh wadhwani - 202412124
-- vitrashah - 202412100
-- kunal agarwal - 202412042
-- anuj patel - 202412064
+- Harsh Wadhwani - 202412124
+- Vitrag Shah - 202412100
+- Kunal Agarwal - 202412042
+- Anuj Patel - 202412064
 
 ### 1. Problem Statement
 
