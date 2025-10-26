@@ -4,7 +4,7 @@
 
 ![BlogHub](https://img.shields.io/badge/BlogHub-MERN%20Blog-blue?style=for-the-badge)
 ![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)
-![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
+
 
 **A modern, feature-rich blogging platform built with the MERN stack**
 
