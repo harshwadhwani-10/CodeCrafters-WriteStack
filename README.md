@@ -30,7 +30,6 @@
 - [Usage](#-usage)
 - [Project Structure](#-project-structure)
 - [API Endpoints](#-api-endpoints)
-- [Screenshots](#-screenshots)
 - [Contributing](#-contributing)
 - [License](#-license)
 
