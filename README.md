@@ -13,7 +13,7 @@
 [Installation](#-installation) •
 [Environment Variables](#-environment-variables) •
 [Usage](#-usage) •
-[Screenshots](#-screenshots)
+
 
 </div>
 
@@ -31,7 +31,7 @@
 - [Project Structure](#-project-structure)
 - [API Endpoints](#-api-endpoints)
 - [Contributing](#-contributing)
-- [License](#-license)
+  
 
 ---
 
@@ -428,11 +428,7 @@ Contributions are always welcome! Please feel free to submit a Pull Request.
 
 ---
 
-## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
----
 
 ## 👨‍💻 Author
 
