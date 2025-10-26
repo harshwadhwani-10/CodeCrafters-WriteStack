@@ -415,21 +415,7 @@ PUT    /api/admin/unban-user/:id                   # Unban user
 
 ---
 
-## 📸 Screenshots
 
-### Home Page
-![Home Page](./screenshots/home.png)
-
-### Blog Editor
-![Blog Editor](./screenshots/editor.png)
-
-### Admin Dashboard
-![Admin Dashboard](./screenshots/dashboard.png)
-
-### User Profile
-![User Profile](./screenshots/profile.png)
-
----
 
 ## 🤝 Contributing
 
@@ -453,8 +439,8 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 **Your Name**
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
+- GitHub: [@Vitragshah2108](https://github.com/vitragshah2108)
+- Email: vitragshah2108@gmail.com
 
 ---
 
