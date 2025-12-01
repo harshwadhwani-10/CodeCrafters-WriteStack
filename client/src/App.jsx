@@ -1,8 +1,13 @@
-import React from 'react'
-import { Button } from './components/ui/button'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Layout from './Layout/Layout'
-import { RouteAddCategory, RouteAdminDashboard, RouteBlog, RouteBlogAdd, RouteBlogByCategory, RouteBlogDetails, RouteBlogEdit, RouteCategoryDetails, RouteCommentDetails, RouteEditCategory, RouteForgotPassword, RouteIndex, RouteProfile, RouteSearch, RouteSignIn, RouteSignUp, RouteUser } from './helpers/RouteName'
+import { 
+  RouteAddCategory, RouteAdminDashboard, RouteBlog, RouteBlogAdd, 
+  RouteBlogByCategory, RouteBlogDetails, RouteBlogEdit, RouteCategoryDetails, 
+  RouteCommentDetails, RouteEditCategory, RouteForgotPassword, RouteIndex, 
+  RouteProfile, RouteSearch, RouteSignIn, RouteSignUp, RouteUser 
+} from './helpers/RouteName'
+
 import Index from './pages/Index'
 import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn'
@@ -24,18 +29,55 @@ import ForgotPassword from './pages/ForgotPassword'
 import ResetPassword from './pages/ResetPassword'
 import Dashboard from './pages/Admin/Dashboard'
 
+// 🔥 NEW IMPORTS FOR GOOGLE REDIRECT LOGIN
+import { auth } from "./firebase"
+import { getRedirectResult } from "firebase/auth"
+import axios from "axios"
+
+// 🔥 NEW COMPONENT: Handles Google Login Redirect Globally
+const GoogleRedirectHandler = () => {
+  useEffect(() => {
+    getRedirectResult(auth)
+      .then(async (result) => {
+        if (!result) return; // No redirect result — user opened normally
+
+        const user = {
+          name: result.user.displayName,
+          email: result.user.email,
+          avatar: result.user.photoURL,
+        };
+
+        // Send Google user to backend
+        await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/api/auth/google`,
+          user,
+          { withCredentials: true }
+        );
+
+        // Redirect to homepage after successful login
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("Google redirect error:", error);
+      });
+  }, []);
+
+  return null;
+};
+
 const App = () => {
   return (
     <BrowserRouter>
+      {/* 🔥 MUST BE FIRST — handles Google login */}
+      <GoogleRedirectHandler />
+
       <Routes>
         <Route path={RouteIndex} element={<Layout />} >
           <Route index element={<Index />} />
 
-
           <Route path={RouteBlogDetails()} element={<SingleBlogDetails />} />
           <Route path={RouteBlogByCategory()} element={<BlogByCategory />} />
           <Route path={RouteSearch()} element={<SearchResult />} />
-
 
           <Route element={<AuthRouteProtechtion />}>
             <Route path={RouteProfile} element={<Profile />} />
@@ -44,7 +86,6 @@ const App = () => {
             <Route path={RouteBlogEdit()} element={<EditBlog />} />
             <Route path={RouteCommentDetails} element={<Comments />} />
           </Route>
-
 
           <Route element={<OnlyAdminAllowed />}>
             <Route path={RouteAdminDashboard} element={<Dashboard />} />
@@ -65,4 +106,4 @@ const App = () => {
   )
 }
 
-export default App 
+export default App

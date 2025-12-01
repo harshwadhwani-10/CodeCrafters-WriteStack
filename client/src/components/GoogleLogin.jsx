@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button } from './ui/button'
 import { FcGoogle } from "react-icons/fc";
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithRedirect } from 'firebase/auth';
 import { auth, provider } from '@/helpers/firebase';
 import { RouteIndex } from '@/helpers/RouteName';
 import { showToast } from '@/helpers/showToast';
@@ -15,7 +15,7 @@ const GoogleLogin = () => {
     const navigate = useNavigate()
     const handleLogin = async () => {
         try {
-            const googleResponse = await signInWithPopup(auth, provider)
+            const googleResponse = await signInWithRedirect(auth, provider)
             const user = googleResponse.user
             const bodyData = {
                 name: user.displayName,
