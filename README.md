@@ -67,6 +67,7 @@
 - **Category Organization** - Organize blogs into categories
 - **Slug Generation** - SEO-friendly URLs
 - **Featured Images** - Eye-catching blog covers
+- **Smart Updates (PUT & PATCH)** - Full updates with PUT and efficient partial updates with PATCH
 
 ### 💬 Engagement Features
 - **Like System** - Express appreciation for blogs
@@ -93,6 +94,7 @@
 - **Dark Mode Ready** - Easy theming support
 - **Loading States** - Smooth user experience
 - **Toast Notifications** - User-friendly feedback
+- **Static About & Contact Pages** - Header links that load backend-rendered pages without a full reload
 
 ---
 
@@ -120,6 +122,7 @@
 |-----------|---------|---------|
 | **Node.js** | Latest | Runtime Environment |
 | **Express.js** | 4.21.2 | Web Framework |
+| **Morgan** | Latest | HTTP request logging |
 | **MongoDB** | Latest | Database |
 | **Mongoose** | 8.9.2 | ODM |
 | **JWT** | 9.0.2 | Authentication |
@@ -138,6 +141,8 @@
 - **Slugify** - URL slug generation
 - **Cookie Parser** - Cookie management
 - **CORS** - Cross-origin resource sharing
+- **HTTP PATCH** - Partial blog updates for edit flows
+- **Static HTML pages** - About/Contact pages served from the backend and injected into the React app
 
 ---
 
@@ -364,11 +369,12 @@ POST   /api/auth/reset-password  # Reset password
 
 ### Blog Routes
 ```
-GET    /api/blog                  # Get all blogs
-GET    /api/blog/:id              # Get single blog
-POST   /api/blog/add              # Create blog
-PUT    /api/blog/update/:id       # Update blog
-DELETE /api/blog/delete/:id       # Delete blog
+GET    /api/blog/blogs                    # Get all blogs
+GET    /api/blog/get-blog/:slug           # Get single blog by slug
+POST   /api/blog/add                      # Create blog
+PUT    /api/blog/update/:blogid           # Full update (all fields)
+PATCH  /api/blog/patch-update/:blogid     # Partial update (only changed fields)
+DELETE /api/blog/delete/:blogid           # Delete blog
 ```
 
 ### Category Routes
@@ -398,9 +404,9 @@ DELETE /api/drafts                # Delete draft
 
 ### Notification Routes
 ```
-GET    /api/notifications          # Get notifications
-PUT    /api/notifications/:id     # Mark as read
-DELETE /api/notifications/:id     # Delete notification
+GET    /api/notifications                # Get notifications
+PATCH  /api/notifications/:id/read      # Mark a single notification as read
+PATCH  /api/notifications/read-all      # Mark all notifications as read
 ```
 
 ### Admin Routes

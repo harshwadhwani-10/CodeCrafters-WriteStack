@@ -42,6 +42,8 @@ const EditBlog = () => {
 
     const [filePreview, setPreview] = useState()
     const [file, setFile] = useState()
+    const [originalData, setOriginalData] = useState(null)
+    const [originalImageUrl, setOriginalImageUrl] = useState(null)
 
     const formSchema = z.object({
         category: z.string().min(3, 'Category must be at least 3 character long.'),
@@ -62,12 +64,22 @@ const EditBlog = () => {
 
     useEffect(() => {
         if (blogData) {
+            const decodedContent = decode(blogData.blog.blogContent)
             setPreview(blogData.blog.featuredImage)
+            setOriginalImageUrl(blogData.blog.featuredImage)
             form.setValue('category', blogData.blog.category._id)
             form.setValue('title', blogData.blog.title)
-            form.setValue('slug', blogData.blog.title)
             form.setValue('slug', blogData.blog.slug)
-            form.setValue('blogContent', decode(blogData.blog.blogContent))
+            form.setValue('blogContent', decodedContent)
+            
+            // Store original data for comparison
+            setOriginalData({
+                category: blogData.blog.category._id,
+                title: blogData.blog.title,
+                slug: blogData.blog.slug,
+                blogContent: decodedContent,
+                featuredImage: blogData.blog.featuredImage
+            })
         }
     }, [blogData])
 
@@ -89,27 +101,82 @@ const EditBlog = () => {
     }, [blogTitle])
 
     async function onSubmit(values) {
-
         try {
+            if (!originalData) {
+                return showToast('error', 'Original data not loaded. Please wait.')
+            }
+
+            // Detect changed fields
+            const changedFields = {}
+            const TOTAL_FIELDS = 5 // category, title, slug, blogContent, featuredImage
+
+            if (values.category !== originalData.category) {
+                changedFields.category = values.category
+            }
+            if (values.title !== originalData.title) {
+                changedFields.title = values.title
+            }
+            if (values.slug !== originalData.slug) {
+                changedFields.slug = values.slug
+            }
+            if (values.blogContent !== originalData.blogContent) {
+                changedFields.blogContent = values.blogContent
+            }
+
+            // Check if image changed
+            const fileChanged = file !== undefined && file !== null
+            if (fileChanged) {
+                changedFields.featuredImage = true
+            }
+
+            // Determine if all fields changed
+            const allFieldsChanged = Object.keys(changedFields).length === TOTAL_FIELDS
 
             const formData = new FormData()
-            formData.append('file', file)
-            formData.append('data', JSON.stringify(values))
 
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog/update/${blogid}`, {
-                method: 'put',
-                credentials: 'include',
-                body: formData
-            })
-            const data = await response.json()
-            if (!response.ok) {
-                return showToast('error', data.message)
+            if (allFieldsChanged) {
+                // PUT: Send all fields
+                if (file) {
+                    formData.append('file', file)
+                }
+                formData.append('data', JSON.stringify(values))
+
+                const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog/update/${blogid}`, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    body: formData
+                })
+                const data = await response.json()
+                if (!response.ok) {
+                    return showToast('error', data.message)
+                }
+                form.reset()
+                setFile()
+                setPreview()
+                navigate(RouteBlog)
+                showToast('success', data.message)
+            } else {
+                // PATCH: Send only changed fields
+                formData.append('data', JSON.stringify(changedFields))
+                if (fileChanged) {
+                    formData.append('file', file)
+                }
+
+                const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog/patch-update/${blogid}`, {
+                    method: 'PATCH',
+                    credentials: 'include',
+                    body: formData
+                })
+                const data = await response.json()
+                if (!response.ok) {
+                    return showToast('error', data.message)
+                }
+                form.reset()
+                setFile()
+                setPreview()
+                navigate(RouteBlog)
+                showToast('success', data.message)
             }
-            form.reset()
-            setFile()
-            setPreview()
-            navigate(RouteBlog)
-            showToast('success', data.message)
         } catch (error) {
             showToast('error', error.message)
         }

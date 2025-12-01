@@ -91,7 +91,23 @@ const Topbar = () => {
                     <>
                         {/* Notification Bell Icon */}
                         <NotificationDropdown />
-                        
+
+                        {/* About / Contact */}
+                        <button
+                            type="button"
+                            onClick={() => navigate(`${RouteIndex}?page=about`)}
+                            className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                        >
+                            About Us
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => navigate(`${RouteIndex}?page=contact`)}
+                            className="text-sm text-gray-700 hover:text-blue-600 transition-colors"
+                        >
+                            Contact Us
+                        </button>
+
                         <DropdownMenu>
                             <DropdownMenuTrigger>
                                 <Avatar>
