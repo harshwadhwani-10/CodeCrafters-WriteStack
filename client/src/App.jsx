@@ -30,7 +30,7 @@ import ResetPassword from './pages/ResetPassword'
 import Dashboard from './pages/Admin/Dashboard'
 
 // 🔥 NEW IMPORTS FOR GOOGLE REDIRECT LOGIN
-import { auth } from "./firebase"
+import { auth } from "./helpers/firebase";
 import { getRedirectResult } from "firebase/auth"
 import axios from "axios"
 
