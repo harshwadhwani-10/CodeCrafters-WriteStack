@@ -69,8 +69,17 @@ export const updateBlog = async (req, res, next) => {
         const { blogid } = req.params
         const data = JSON.parse(req.body.data)
 
-        const blog = await Blog.findById(blogid)
+        // PUT requires ALL fields to be provided
+        if (!data.category || !data.title || !data.slug || !data.blogContent) {
+            return next(handleError(400, 'All fields (category, title, slug, blogContent) are required for full update.'))
+        }
 
+        const blog = await Blog.findById(blogid)
+        if (!blog) {
+            return next(handleError(404, 'Blog not found.'))
+        }
+
+        // Overwrite all fields
         blog.category = data.category
         blog.title = data.title
         blog.slug = data.slug
@@ -109,6 +118,68 @@ export const updateBlog = async (req, res, next) => {
         res.status(200).json({
             success: true,
             message: 'Blog updated successfully.'
+        })
+
+    } catch (error) {
+        next(handleError(500, error.message))
+    }
+}
+
+export const patchUpdateBlog = async (req, res, next) => {
+    try {
+        console.log('PATCH route hit for blogid:', req.params.blogid)
+        const { blogid } = req.params
+        const data = JSON.parse(req.body.data)
+
+        const blog = await Blog.findById(blogid)
+        if (!blog) {
+            return next(handleError(404, 'Blog not found.'))
+        }
+
+        // Only update fields that are present in the request
+        if (data.category) {
+            blog.category = data.category
+        }
+        if (data.title) {
+            blog.title = data.title
+        }
+        if (data.slug) {
+            blog.slug = data.slug
+        }
+        if (data.blogContent) {
+            blog.blogContent = encode(data.blogContent)
+        }
+
+        // Handle image upload only if file is provided
+        if (req.file) {
+            try {
+                const uploadResult = await cloudinary.uploader.upload(
+                    req.file.path,
+                    { 
+                        folder: 'MERN-BLOG', 
+                        resource_type: 'auto'
+                    }
+                );
+                blog.featuredImage = uploadResult.secure_url;
+            } catch (error) {
+                console.error("Cloudinary upload error:", error);
+                
+                // Check for API secret mismatch
+                if (error.message && error.message.includes('Invalid Signature')) {
+                    return next(handleError(500, 'Cloudinary API secret mismatch. Please check your .env file.'));
+                }
+                
+                return next(handleError(500, `Image upload failed: ${error.message}`));
+            }
+        }
+        // If no file provided, keep the existing image (no change needed)
+
+        await blog.save()
+
+        res.status(200).json({
+            success: true,
+            message: 'Blog updated successfully.',
+            updatedFields: Object.keys(data)
         })
 
     } catch (error) {
