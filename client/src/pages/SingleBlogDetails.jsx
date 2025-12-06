@@ -9,6 +9,7 @@ import { Avatar } from '@/components/ui/avatar'
 import { getEvn } from '@/helpers/getEnv'
 import { useFetch } from '@/hooks/useFetch'
 import { AvatarImage } from '@radix-ui/react-avatar'
+import usericon from '@/assets/images/user.png'
 import { decode } from 'entities'
 import moment from 'moment'
 import React from 'react'
@@ -23,6 +24,17 @@ const SingleBlogDetails = () => {
     }, [blog, category])
 
     if (loading) return <Loading />
+
+    // If blog not found or author missing (e.g., deleted/banned user), show a friendly message
+    if (!data || !data.blog || !data.blog.author) {
+        return (
+            <div className="border rounded w-full p-5 text-center">
+                <p className="text-lg font-semibold">Blog not found or no longer available.</p>
+            </div>
+        )
+    }
+
+    const author = data.blog.author || { name: 'Deleted User', avatar: usericon, role: 'user' }
     return (
 
         <div className='md:flex-nowrap flex-wrap flex justify-between gap-20'>
@@ -33,10 +45,10 @@ const SingleBlogDetails = () => {
                         <div className='flex justify-between items-center'>
                             <div className='flex justify-between items-center gap-5'>
                                 <Avatar>
-                                    <AvatarImage src={data.blog.author.avatar} />
+                                    <AvatarImage src={author.avatar || usericon} />
                                 </Avatar>
                                 <div>
-                                    <p className='font-bold'>{data.blog.author.name}</p>
+                                    <p className='font-bold'>{author.name}</p>
                                     <p>Date: {moment(data.blog.createdAt).format('DD-MM-YYYY')}</p>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import Ban from "../models/ban.model.js"
 import Blog from "../models/blog.model.js"
 import Comment from "../models/comment.model.js"
 import Like from "../models/like.model.js"
+import BlogLike from "../models/bloglike.model.js"
 import Notification from "../models/notification.model.js"
 import { sendEmail, emailTemplates } from '../utils/email.js'
 
@@ -139,9 +140,13 @@ export const deleteUser = async (req, res, next) => {
             const commentsResult = await Comment.deleteMany({ user: user._id });
             console.log('Comments deleted:', commentsResult.deletedCount);
             
-            console.log('Deleting user likes...');
+            console.log('Deleting legacy likes (if any)...');
             const likesResult = await Like.deleteMany({ user: user._id });
-            console.log('Likes deleted:', likesResult.deletedCount);
+            console.log('Legacy likes deleted:', likesResult.deletedCount);
+
+            console.log('Deleting blog likes...');
+            const blogLikesResult = await BlogLike.deleteMany({ user: user._id });
+            console.log('Blog likes deleted:', blogLikesResult.deletedCount);
             
             console.log('Deleting user notifications...');
             const notificationsResult = await Notification.deleteMany({ 

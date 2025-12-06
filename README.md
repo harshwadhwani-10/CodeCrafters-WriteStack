@@ -1,8 +1,8 @@
-# 🚀 BlogHub - Modern MERN Stack Blogging Platform
+# 🚀 WriteStack - Modern MERN Stack Blogging Platform
 
 <div align="center">
 
-![BlogHub](https://img.shields.io/badge/BlogHub-MERN%20Blog-blue?style=for-the-badge)
+![WriteStack](https://img.shields.io/badge/WriteStack-MERN%20Blog-blue?style=for-the-badge)
 ![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)
 
 
@@ -37,7 +37,7 @@
 
 ## 🌟 Overview
 
-**BlogHub** is a comprehensive blogging platform that empowers users to create, share, and engage with blog content. Built with modern web technologies, it offers a seamless experience for both content creators and readers.
+**WriteStack** is a comprehensive blogging platform that empowers users to create, share, and engage with blog content. Built with modern web technologies, it offers a seamless experience for both content creators and readers.
 
 ### Key Highlights
 

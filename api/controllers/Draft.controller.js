@@ -26,7 +26,15 @@ export const getDraft = async (req, res, next) => {
 export const saveDraft = async (req, res, next) => {
     try {
         const userId = req.user._id;
-        const data = JSON.parse(req.body.data);
+        const data = JSON.parse(req.body.data || '{}');
+
+        // Normalize incoming data to avoid type cast errors (e.g., empty string for ObjectId fields)
+        const normalizedData = {
+            category: data.category && data.category !== '' ? data.category : undefined,
+            title: data.title || '',
+            slug: data.slug || '',
+            blogContent: data.blogContent || '',
+        };
         
         // Check if a draft already exists for this user
         let draft = await Draft.findOne({ author: userId });
@@ -52,10 +60,18 @@ export const saveDraft = async (req, res, next) => {
         
         if (draft) {
             // Update existing draft
-            draft.category = data.category || draft.category;
-            draft.title = data.title || draft.title;
-            draft.slug = data.slug || draft.slug;
-            draft.blogContent = data.blogContent ? encode(data.blogContent) : draft.blogContent;
+            if (normalizedData.category) {
+                draft.category = normalizedData.category;
+            }
+            if (normalizedData.title) {
+                draft.title = normalizedData.title;
+            }
+            if (normalizedData.slug) {
+                draft.slug = normalizedData.slug;
+            }
+            if (normalizedData.blogContent) {
+                draft.blogContent = encode(normalizedData.blogContent);
+            }
             draft.lastUpdated = Date.now();
             
             if (featuredImage) {
@@ -67,10 +83,11 @@ export const saveDraft = async (req, res, next) => {
             // Create new draft
             draft = new Draft({
                 author: userId,
-                category: data.category,
-                title: data.title,
-                slug: data.slug,
-                blogContent: data.blogContent ? encode(data.blogContent) : '',
+                // Only set category if it's a valid ObjectId string
+                ...(normalizedData.category && { category: normalizedData.category }),
+                title: normalizedData.title,
+                slug: normalizedData.slug,
+                blogContent: normalizedData.blogContent ? encode(normalizedData.blogContent) : '',
                 featuredImage: featuredImage,
                 lastUpdated: Date.now()
             });

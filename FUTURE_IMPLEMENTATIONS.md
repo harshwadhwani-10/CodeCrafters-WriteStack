@@ -1,8 +1,8 @@
-# Future Implementations for BlogHub - Interview Response
+# Future Implementations for WriteStack - Interview Response
 
 ## Short Answer (30-60 seconds)
 
-There are several directions I'd take BlogHub next, depending on user needs. First, I'd add social features like following other writers, so users can build audiences and discover content from creators they like. I'd implement a tagging system alongside categories for better content discovery, and advanced search with filters for date, popularity, and author. 
+There are several directions I'd take WriteStack next, depending on user needs. First, I'd add social features like following other writers, so users can build audiences and discover content from creators they like. I'd implement a tagging system alongside categories for better content discovery, and advanced search with filters for date, popularity, and author. 
 
 On the technical side, I'd integrate WebSockets for real-time notifications instead of polling, implement Redis caching to improve performance as the platform scales, and add SEO optimizations like meta tags and sitemaps. I'd also build analytics for blog authors so they can see views, engagement rates, and reader demographics. 
 
@@ -12,7 +12,7 @@ Long-term, I'm thinking about features like bookmarking blogs to read later, ema
 
 ## Detailed Strategic Answer (2-3 minutes)
 
-When thinking about future implementations for BlogHub, I'd approach it in phases based on user feedback and platform growth.
+When thinking about future implementations for WriteStack, I'd approach it in phases based on user feedback and platform growth.
 
 **Phase 1: Enhanced Discovery & Social Features**
 
@@ -62,7 +62,7 @@ My strategy is user-driven. Before building new features, I'd analyze usage patt
 
 I'd also maintain backward compatibility. Any new feature shouldn't break existing functionality or confuse current users. Gradual rollout with feature flags would let me test with a subset of users before full deployment.
 
-The goal is making BlogHub more valuable for both readers and writers, while keeping it simple and performant.
+The goal is making WriteStack more valuable for both readers and writers, while keeping it simple and performant.
 
 ---
 

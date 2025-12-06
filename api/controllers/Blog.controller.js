@@ -203,10 +203,24 @@ export const showAllBlog = async (req, res, next) => {
         const user = req.user
         let blog;
         if (user.role === 'admin') {
-            blog = await Blog.find().populate('author', 'name avatar role').populate('category', 'name slug').sort({ createdAt: -1 }).lean().exec()
+            blog = await Blog.find()
+                .populate('author', 'name avatar role')
+                .populate('category', 'name slug')
+                .sort({ createdAt: -1 })
+                .lean()
+                .exec()
         } else {
-            blog = await Blog.find({ author: user._id }).populate('author', 'name avatar role').populate('category', 'name slug').sort({ createdAt: -1 }).lean().exec()
+            blog = await Blog.find({ author: user._id })
+                .populate('author', 'name avatar role')
+                .populate('category', 'name slug')
+                .sort({ createdAt: -1 })
+                .lean()
+                .exec()
         }
+
+        // Filter out blogs whose author no longer exists
+        blog = blog.filter(b => b.author)
+
         res.status(200).json({
             blog
         })
@@ -218,7 +232,17 @@ export const showAllBlog = async (req, res, next) => {
 export const getBlog = async (req, res, next) => {
     try {
         const { slug } = req.params
-        const blog = await Blog.findOne({ slug }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
+        const blog = await Blog.findOne({ slug })
+            .populate('author', 'name avatar role')
+            .populate('category', 'name slug')
+            .lean()
+            .exec()
+
+        // If blog or author is missing, treat as not found
+        if (!blog || !blog.author) {
+            return next(handleError(404, 'Blog not found.'))
+        }
+
         res.status(200).json({
             blog
         })
@@ -255,7 +279,14 @@ export const getBlogByCategory = async (req, res, next) => {
             return next(handleError(404, 'Category data not found.'));
         }
         const categoryId = categoryData._id
-        const blog = await Blog.find({ category: categoryId }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
+        let blog = await Blog.find({ category: categoryId })
+            .populate('author', 'name avatar role')
+            .populate('category', 'name slug')
+            .lean()
+            .exec()
+
+        // Filter out blogs whose author no longer exists
+        blog = blog.filter(b => b.author)
         res.status(200).json({
             blog,
             categoryData    
@@ -267,8 +298,14 @@ export const getBlogByCategory = async (req, res, next) => {
 export const search = async (req, res, next) => {
     try {
         const { q } = req.query
+        let blog = await Blog.find({ title: { $regex: q, $options: 'i' } })
+            .populate('author', 'name avatar role')
+            .populate('category', 'name slug')
+            .lean()
+            .exec()
 
-        const blog = await Blog.find({ title: { $regex: q, $options: 'i' } }).populate('author', 'name avatar role').populate('category', 'name slug').lean().exec()
+        // Filter out blogs whose author no longer exists
+        blog = blog.filter(b => b.author)
         res.status(200).json({
             blog,
         })
@@ -279,8 +316,16 @@ export const search = async (req, res, next) => {
 
 export const getAllBlogs = async (req, res, next) => {
     try {
-        const user = req.user
-        const blog = await Blog.find().populate('author', 'name avatar role').populate('category', 'name slug').sort({ createdAt: -1 }).lean().exec()
+        const blogData = await Blog.find()
+            .populate('author', 'name avatar role')
+            .populate('category', 'name slug')
+            .sort({ createdAt: -1 })
+            .lean()
+            .exec()
+
+        // Filter out blogs whose author no longer exists
+        const blog = blogData.filter(b => b.author)
+
         res.status(200).json({
             blog
         })

@@ -138,7 +138,7 @@ export const downloadReport = async (req, res, next) => {
                             new Paragraph({
                                 children: [
                                     new TextRun({
-                                        text: 'BlogHub',
+                                        text: 'WriteStack',
                                         bold: true,
                                         size: 28,
                                         color: '2B579A'
@@ -201,7 +201,7 @@ export const downloadReport = async (req, res, next) => {
                             new Paragraph({
                                 children: [
                                     new TextRun({
-                                        text: 'BlogHub - Your Blogging Platform',
+                                        text: 'WriteStack - Your Blogging Platform',
                                         color: '2B579A'
                                     })
                                 ],
@@ -241,7 +241,7 @@ export const downloadReport = async (req, res, next) => {
                     pdfDoc.font('Helvetica-Bold')
                         .fontSize(24)
                         .fillColor('#2B579A')
-                        .text('BlogHub', { align: 'center' })
+                        .text('WriteStack', { align: 'center' })
                         .moveDown()
 
                     // Title
@@ -269,7 +269,7 @@ export const downloadReport = async (req, res, next) => {
                     pdfDoc.font('Helvetica-Bold')
                         .fontSize(12)
                         .fillColor('#2B579A')
-                        .text('BlogHub - Your Blogging Platform', pdfDoc.page.width / 2, pdfDoc.page.height - 50, {
+                        .text('WriteStack - Your Blogging Platform', pdfDoc.page.width / 2, pdfDoc.page.height - 50, {
                             align: 'center'
                         })
 

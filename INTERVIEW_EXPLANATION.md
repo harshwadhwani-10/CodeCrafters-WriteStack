@@ -1,16 +1,16 @@
-# BlogHub - Interview Explanation
+# WriteStack - Interview Explanation
 
 ## Why I Chose This Project
 
-When I started building BlogHub, I had a very personal motivation. I wanted to read interview experiences from companies I was applying to, and I kept hitting paywalls on platforms like Medium. That frustration made me realize there's a real need for a blogging platform that's completely free and open—where anyone can read and write without barriers.
+When I started building WriteStack, I had a very personal motivation. I wanted to read interview experiences from companies I was applying to, and I kept hitting paywalls on platforms like Medium. That frustration made me realize there's a real need for a blogging platform that's completely free and open—where anyone can read and write without barriers.
 
 Existing platforms all have their issues. Medium forces users to pay or subscribe to read premium content, which I experienced firsthand. WordPress is powerful but way too complex—it tries to do everything from hosting to website building, which makes it confusing when you just want to write a simple blog. And platforms like GeeksForGeeks are great, but they're limited to technical content.
 
-I wanted something different—a centralized, clean platform purely focused on writing and reading blogs freely. That's how BlogHub was born.
+I wanted something different—a centralized, clean platform purely focused on writing and reading blogs freely. That's how WriteStack was born.
 
-## What Makes BlogHub Different
+## What Makes WriteStack Different
 
-First, BlogHub supports any type of content. It's not just for technical blogs like some platforms. Whether you want to write about travel, food, personal experiences, or tech tutorials, everything is welcome.
+First, WriteStack supports any type of content. It's not just for technical blogs like some platforms. Whether you want to write about travel, food, personal experiences, or tech tutorials, everything is welcome.
 
 The biggest technical difference is the rich text editor. I integrated CKEditor 5, which gives writers professional-level formatting options. Users can embed images, add tables, format text with headings, create lists, and even paste content from Office documents. It's the same level of editing power you'd find in premium platforms.
 
@@ -69,5 +69,5 @@ On the technical side, I gained deep experience with the MERN stack. I understan
 
 The project is polished enough that real users could actually use it. All the core features work—authentication, content creation, social interactions, admin management. It's not just a demo—it's a functioning platform.
 
-This project taught me that good software isn't just about writing code. It's about solving problems, thinking about users, and building something that people would actually want to use. BlogHub isn't just a portfolio project—it's a platform I'm proud of, and one that demonstrates I can take a concept from idea to fully functional application.
+This project taught me that good software isn't just about writing code. It's about solving problems, thinking about users, and building something that people would actually want to use. WriteStack isn't just a portfolio project—it's a platform I'm proud of, and one that demonstrates I can take a concept from idea to fully functional application.
 
