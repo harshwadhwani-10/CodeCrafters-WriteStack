@@ -1,6 +1,6 @@
 import { getAuth, GoogleAuthProvider } from 'firebase/auth'
 import { initializeApp } from "firebase/app";
-import { getEvn } from "./getEnv";
+import { getEnv } from "./getEnv";
 
 
 
@@ -14,7 +14,7 @@ import { getEvn } from "./getEnv";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: getEvn('VITE_FIREBASE_API'),
+  apiKey: getEnv('VITE_FIREBASE_API'),
   authDomain: "mern-blog-1a871.firebaseapp.com",
   projectId: "mern-blog-1a871",
   storageBucket: "mern-blog-1a871.firebasestorage.app",
@@ -41,7 +41,7 @@ const app = initializeApp(firebaseConfig);
 
 // // Your web app's Firebase configuration
 // const firebaseConfig = {
-//     apiKey: getEvn('VITE_FIREBASE_API'),
+//     apiKey: getEnv('VITE_FIREBASE_API'),
 //     authDomain: "yt-mern-blog.firebaseapp.com",
 //     projectId: "yt-mern-blog",
 //     storageBucket: "yt-mern-blog.firebasestorage.app",

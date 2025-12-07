@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/table"
 import { RouteBlogAdd, RouteBlogEdit } from '@/helpers/RouteName'
 import { useFetch } from '@/hooks/useFetch'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { deleteData } from '@/helpers/handleDelete'
 import { showToast } from '@/helpers/showToast'
 import Loading from '@/components/Loading'
@@ -22,13 +22,13 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import moment from 'moment'
 const BlogDetails = () => {
     const [refreshData, setRefreshData] = useState(false)
-    const { data: blogData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/get-all`, {
+    const { data: blogData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/blog/get-all`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
 
     const handleDelete = async (id) => {
-        const response = await deleteData(`${getEvn('VITE_API_BASE_URL')}/blog/delete/${id}`)
+        const response = await deleteData(`${getEnv('VITE_API_BASE_URL')}/blog/delete/${id}`)
         if (response) {
             setRefreshData(!refreshData)
             showToast('success', 'Data deleted.')

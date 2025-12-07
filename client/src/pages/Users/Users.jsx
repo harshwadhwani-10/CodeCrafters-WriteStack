@@ -10,7 +10,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useFetch } from '@/hooks/useFetch'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { showToast } from '@/helpers/showToast'
 import Loading from '@/components/Loading'
 import { useState, useEffect } from 'react'
@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge"
 const Users = () => {
     const [refreshData, setRefreshData] = useState(false)
     const currentUser = useSelector((state) => state.user.user)
-    const { data: userData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/user/get-all-user`, {
+    const { data: userData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/user/get-all-user`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
@@ -45,7 +45,7 @@ const Users = () => {
                 return;
             }
 
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/user/delete/${id}`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/user/delete/${id}`, {
                 method: 'delete',
                 credentials: 'include'
             });

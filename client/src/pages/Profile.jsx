@@ -6,7 +6,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { showToast } from '@/helpers/showToast'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
@@ -24,7 +24,7 @@ const Profile = () => {
     const [file, setFile] = useState()
     const user = useSelector((state) => state.user)
 
-    const { data: userData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/user/get-user/${user.user._id}`,
+    const { data: userData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/user/get-user/${user.user._id}`,
         { method: 'get', credentials: 'include' },
 
     )
@@ -67,7 +67,7 @@ const Profile = () => {
             formData.append('file', file)
             formData.append('data', JSON.stringify(values))
 
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/user/update-user/${userData.user._id}`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/user/update-user/${userData.user._id}`, {
                 method: 'put',
                 credentials: 'include',
                 body: formData

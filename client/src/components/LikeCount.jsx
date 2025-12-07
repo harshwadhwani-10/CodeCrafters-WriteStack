@@ -1,4 +1,4 @@
-import { getEvn } from '@/helpers/getEnv';
+import { getEnv } from '@/helpers/getEnv';
 import { showToast } from '@/helpers/showToast';
 import { useFetch } from '@/hooks/useFetch';
 import React, { useEffect, useState } from 'react'
@@ -11,7 +11,7 @@ const LikeCount = ({ props }) => {
     const [hasLiked, setHasLiked] = useState(false)
     const user = useSelector(state => state.user)
 
-    const { data: blogLikeCount, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog-like/get-like/${props.blogid}/${user && user.isLoggedIn ? user.user._id : ''}`, {
+    const { data: blogLikeCount, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/blog-like/get-like/${props.blogid}/${user && user.isLoggedIn ? user.user._id : ''}`, {
         method: 'get',
         credentials: 'include',
     })
@@ -29,7 +29,7 @@ const LikeCount = ({ props }) => {
                 return showToast('error', 'Please login into your account.')
             }
 
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog-like/do-like`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/blog-like/do-like`, {
                 method: 'post',
                 credentials: 'include',
                 headers: { 'Content-type': "application/json" },

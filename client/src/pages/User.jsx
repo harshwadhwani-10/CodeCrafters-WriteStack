@@ -11,7 +11,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useFetch } from '@/hooks/useFetch'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import Loading from '@/components/Loading'
 import { FaRegTrashAlt } from "react-icons/fa"
 import { showToast } from '@/helpers/showToast'
@@ -20,7 +20,7 @@ import moment from 'moment'
 
 const User = () => {
     const [refreshData, setRefreshData] = useState(false)
-    const { data, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/user/get-all-user`, {
+    const { data, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/user/get-all-user`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
@@ -33,7 +33,7 @@ const User = () => {
                 return;
             }
 
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/user/delete/${id}`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/user/delete/${id}`, {
                 method: 'delete',
                 credentials: 'include'
             });

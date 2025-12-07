@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/card'
 import { RouteIndex, RouteSignIn } from '@/helpers/RouteName'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { showToast } from '@/helpers/showToast'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import logo from '@/assets/images/logo-white.png'
 
 const ResetPassword = () => {
@@ -37,7 +37,7 @@ const ResetPassword = () => {
 
     async function onSubmit(values) {
         try {
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/auth/reset-password`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

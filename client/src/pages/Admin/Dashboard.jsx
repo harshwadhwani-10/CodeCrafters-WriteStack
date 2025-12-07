@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { showToast } from '@/helpers/showToast'
 import { useNavigate } from 'react-router-dom'
 import { RouteIndex } from '@/helpers/RouteName'
@@ -33,7 +33,7 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
         try {
             setLoading(true)
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/admin/dashboard`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/admin/dashboard`, {
                credentials: 'include'
             })
             const data = await response.json()
@@ -53,7 +53,7 @@ const Dashboard = () => {
 
     const handleDownloadReport = async (type, format) => {
         try {
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/admin/download-report/${type}/${format}`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/admin/download-report/${type}/${format}`, {
                 credentials: 'include'
             })
             if (!response.ok) {

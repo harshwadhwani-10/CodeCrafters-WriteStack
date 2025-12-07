@@ -13,7 +13,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useFetch } from '@/hooks/useFetch'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import Loading from '@/components/Loading'
 import { FiEdit } from "react-icons/fi";
 import { FaRegTrashAlt } from "react-icons/fa";
@@ -22,13 +22,13 @@ import { showToast } from '@/helpers/showToast'
 
 const CategoryDetails = () => {
     const [refreshData, setRefreshData] = useState(false)
-    const { data: categoryData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/category/all-category`, {
+    const { data: categoryData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/category/all-category`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
 
     const handleDelete = (id) => {
-        const response = deleteData(`${getEvn('VITE_API_BASE_URL')}/category/delete/${id}`)
+        const response = deleteData(`${getEnv('VITE_API_BASE_URL')}/category/delete/${id}`)
         if (response) {
             setRefreshData(!refreshData)
             showToast('success', 'Data deleted.')

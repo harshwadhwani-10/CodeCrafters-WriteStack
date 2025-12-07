@@ -1,6 +1,6 @@
 import BlogCard from '@/components/BlogCard'
 import Loading from '@/components/Loading'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { useFetch } from '@/hooks/useFetch'
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
@@ -14,7 +14,7 @@ const Index = () => {
     const searchParams = new URLSearchParams(location.search)
     const page = searchParams.get('page')
 
-    const { data: blogData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/blogs`, {
+    const { data: blogData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/blog/blogs`, {
         method: 'get',
         credentials: 'include'
     })
@@ -23,7 +23,7 @@ const Index = () => {
         // When page is about/contact, fetch SSR HTML from backend static
         if (page === 'about' || page === 'contact') {
             const filename = page === 'about' ? 'about.html' : 'contact.html'
-            const url = `${getEvn('VITE_API_BASE_URL')}/static/${filename}`
+            const url = `${getEnv('VITE_API_BASE_URL')}/static/${filename}`
 
             setStaticLoading(true)
             setStaticError(null)

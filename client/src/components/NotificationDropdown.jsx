@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Bell } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { showToast } from '../helpers/showToast';
-import { getEvn } from '../helpers/getEnv';
+import { getEnv } from '../helpers/getEnv';
 
 const NotificationDropdown = () => {
   const [notifications, setNotifications] = useState([]);
@@ -19,7 +19,7 @@ const NotificationDropdown = () => {
   const fetchNotifications = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/notifications`, {
+      const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/notifications`, {
         credentials: 'include',
       });
       
@@ -28,6 +28,7 @@ const NotificationDropdown = () => {
       }
       
       const data = await response.json();
+      console.log(data);
       setNotifications(data);
       
       // Count unread notifications
@@ -43,7 +44,7 @@ const NotificationDropdown = () => {
   // Mark a notification as read
   const markAsRead = async (notificationId) => {
     try {
-      const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/notifications/${notificationId}/read`, {
+      const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/notifications/${notificationId}/read`, {
         method: 'PATCH',
         credentials: 'include',
       });
@@ -72,7 +73,7 @@ const NotificationDropdown = () => {
   // Mark all notifications as read
   const markAllAsRead = async () => {
     try {
-      const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/notifications/read-all`, {
+      const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/notifications/read-all`, {
         method: 'PATCH',
         credentials: 'include',
       });

@@ -1,38 +1,40 @@
 import React from 'react'
 import { Button } from './ui/button'
 import { FcGoogle } from "react-icons/fc";
-import { signInWithRedirect } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '@/helpers/firebase';
 import { RouteIndex } from '@/helpers/RouteName';
 import { showToast } from '@/helpers/showToast';
-import { getEvn } from '@/helpers/getEnv';
+import { getEnv } from '@/helpers/getEnv';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/user/user.slice';
 
-const GoogleLogin = () => {
-    const dispath = useDispatch()
+const   GoogleLogin = () => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
     const handleLogin = async () => {
         try {
-            const googleResponse = await signInWithRedirect(auth, provider)
+            const googleResponse = await signInWithPopup(auth, provider)
+            // console.log(googleResponse);
             const user = googleResponse.user
             const bodyData = {
                 name: user.displayName,
                 email: user.email,
                 avatar: user.photoURL
             }
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/auth/google-login`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/google-login`, {
                 method: 'post',
                 headers: { 'Content-type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify(bodyData)
             })
             const data = await response.json()
+            // console.log("user data is "+ data);
             if (!response.ok) {
                 return showToast('error', data.message)
             }
-            dispath(setUser(data.user))
+            dispatch(setUser(data.user))
             navigate(RouteIndex)
             showToast('success', data.message)
         } catch (error) {

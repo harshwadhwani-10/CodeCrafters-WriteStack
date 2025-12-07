@@ -1,6 +1,6 @@
 import BlogCard from '@/components/BlogCard'
 import Loading from '@/components/Loading'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { useFetch } from '@/hooks/useFetch'
 import React from 'react'
 import { useParams } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { BiCategory } from "react-icons/bi";
 
 const BlogByCategory = () => {
     const { category } = useParams()
-    const { data: blogData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/get-blog-by-category/${category}`, {
+    const { data: blogData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/blog/get-blog-by-category/${category}`, {
         method: 'get',
         credentials: 'include'
     }, [category])

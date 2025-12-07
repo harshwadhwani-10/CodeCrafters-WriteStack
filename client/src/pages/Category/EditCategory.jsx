@@ -8,14 +8,14 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import slugify from 'slugify'
 import { showToast } from '@/helpers/showToast'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { useParams } from 'react-router-dom'
 import { useFetch } from '@/hooks/useFetch'
 
 const EditCategory = () => {
     const { category_id } = useParams()
 
-    const { data: categoryData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/category/show/${category_id}`, {
+    const { data: categoryData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/category/show/${category_id}`, {
         method: 'get',
         credentials: 'include'
     }, [category_id])
@@ -56,7 +56,7 @@ const EditCategory = () => {
 
     async function onSubmit(values) {
         try {
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/category/update/${category_id}`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/category/update/${category_id}`, {
                 method: 'put',
                 headers: { 'Content-type': 'application/json' },
                 body: JSON.stringify(values)

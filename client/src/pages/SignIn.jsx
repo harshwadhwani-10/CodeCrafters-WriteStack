@@ -9,7 +9,7 @@ import { Card } from '@/components/ui/card'
 import { RouteIndex, RouteSignUp, RouteForgotPassword } from '@/helpers/RouteName'
 import { Link, useNavigate } from 'react-router-dom'
 import { showToast } from '@/helpers/showToast'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { useDispatch } from 'react-redux'
 import { setUser } from '@/redux/user/user.slice'
 import GoogleLogin from '@/components/GoogleLogin'
@@ -35,7 +35,7 @@ const SignIn = () => {
 
     async function onSubmit(values) {
         try {
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/auth/login`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/login`, {
                 method: 'post',
                 headers: { 'Content-type': 'application/json' },
                 credentials: 'include',

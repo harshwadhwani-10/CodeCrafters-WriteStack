@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { showToast } from '@/helpers/showToast';
-import { getEvn } from '@/helpers/getEnv';
+import { getEnv } from '@/helpers/getEnv';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { useSelector } from 'react-redux';
@@ -35,7 +35,7 @@ const Comment = ({ props }) => {
                 comment: values.comment
             }
             
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/comment/add`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/comment/add`, {
                 method: 'post',
                 credentials: 'include',
                 headers: { 'Content-type': 'application/json' },

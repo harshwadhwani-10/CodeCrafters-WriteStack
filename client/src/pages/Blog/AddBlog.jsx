@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import slugify from 'slugify'
 import { showToast } from '@/helpers/showToast'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import {
     Select,
     SelectContent,
@@ -28,7 +28,7 @@ import { debounce } from 'lodash'
 const AddBlog = () => {
     const navigate = useNavigate()
     const user = useSelector((state) => state.user)
-    const { data: categoryData, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/category/all-category`, {
+    const { data: categoryData, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/category/all-category`, {
         method: 'get',
         credentials: 'include'
     })
@@ -60,7 +60,7 @@ const AddBlog = () => {
     useEffect(() => {
         const fetchDraft = async () => {
             try {
-                const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/drafts`, {
+                const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/drafts`, {
                     method: 'get',
                     credentials: 'include'
                 });
@@ -119,7 +119,7 @@ const AddBlog = () => {
                 const formData = new FormData();
                 if (file) {
                     formData.append('file', file);
-                }
+                }   
                 
                 // Only include fields that have values
                 const draftData = {
@@ -131,7 +131,7 @@ const AddBlog = () => {
                 
                 formData.append('data', JSON.stringify(draftData));
                 
-                const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/drafts`, {
+                const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/drafts`, {
                     method: 'post',
                     credentials: 'include',
                     body: formData
@@ -175,7 +175,7 @@ const AddBlog = () => {
             formData.append('file', file)
             formData.append('data', JSON.stringify(newValues))
 
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/blog/add`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/blog/add`, {
                 method: 'post',
                 credentials: 'include',
                 body: formData
@@ -187,7 +187,7 @@ const AddBlog = () => {
             
             // Delete the draft after successful blog submission
             try {
-                await fetch(`${getEvn('VITE_API_BASE_URL')}/drafts`, {
+                await fetch(`${getEnv('VITE_API_BASE_URL')}/drafts`, {
                     method: 'delete',
                     credentials: 'include'
                 });

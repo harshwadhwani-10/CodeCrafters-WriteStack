@@ -11,7 +11,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import { useFetch } from '@/hooks/useFetch'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import Loading from '@/components/Loading'
 import { FaRegTrashAlt } from "react-icons/fa"
 import { deleteData } from '@/helpers/handleDelete'
@@ -19,14 +19,14 @@ import { showToast } from '@/helpers/showToast'
 
 const Comments = () => {
     const [refreshData, setRefreshData] = useState(false)
-    const { data, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/comment/get-all-comment`, {
+    const { data, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/comment/get-all-comment`, {
         method: 'get',
         credentials: 'include'
     }, [refreshData])
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`${getEvn('VITE_API_BASE_URL')}/comment/delete/${id}`, {
+            const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/comment/delete/${id}`, {
                 method: 'delete',
                 credentials: 'include'
             });

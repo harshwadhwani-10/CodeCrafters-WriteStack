@@ -6,7 +6,7 @@ import Loading from '@/components/Loading'
 import RelatedBlog from '@/components/RelatedBlog'
 import CodeCompiler from '@/components/CodeCompiler'
 import { Avatar } from '@/components/ui/avatar'
-import { getEvn } from '@/helpers/getEnv'
+import { getEnv } from '@/helpers/getEnv'
 import { useFetch } from '@/hooks/useFetch'
 import { AvatarImage } from '@radix-ui/react-avatar'
 import usericon from '@/assets/images/user.png'
@@ -18,7 +18,7 @@ import { useParams } from 'react-router-dom'
 const SingleBlogDetails = () => {
     const { blog, category } = useParams()
 
-    const { data, loading, error } = useFetch(`${getEvn('VITE_API_BASE_URL')}/blog/get-blog/${blog}`, {
+    const { data, loading, error } = useFetch(`${getEnv('VITE_API_BASE_URL')}/blog/get-blog/${blog}`, {
         method: 'get',
         credentials: 'include',
     }, [blog, category])
