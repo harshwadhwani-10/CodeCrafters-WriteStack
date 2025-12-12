@@ -444,8 +444,8 @@ Contributions are always welcome! Please feel free to submit a Pull Request.
 
 **Your Name**
 
-- GitHub: [@Vitragshah2108](https://github.com/vitragshah2108)
-- Email: vitragshah2108@gmail.com
+- GitHub: [@WriteStack](https://github.com/harshwadhwani-10)
+- Email: harshwadhani268@gmail.com
 
 ---
 
