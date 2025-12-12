@@ -61,13 +61,13 @@ app.use('/api/admin', AdminRoute)
 
 
 
-mongoose.connect(process.env.MONGODB_CONN, { dbName: 'yt-mern-blog' })
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(process.env.MONGODB_CONN, { dbName: 'yt-mern-blog' })
     .then(() => console.log('Database connected.'))
-    .catch(err => console.log('Database connection failed.', err))
+    .catch(err => console.log('Database connection failed.', err));
 
-app.listen(PORT, () => {
-    console.log('Server running on port:', PORT)
-})
+  app.listen(PORT, () => console.log('Server running on port', PORT));
+}
 
 
 app.use((err, req, res, next) => {
@@ -79,3 +79,4 @@ app.use((err, req, res, next) => {
         message
     })
 })
+export default app;
