@@ -1,6 +1,5 @@
 # Blog Hub: Core Concepts, Objects, and Context
 
-**[View this file in project: `doc/object-context-information.md`](../doc/object-context-information.md)**
 
 ---
 
@@ -83,4 +82,3 @@
 
 ---
 
-**This file is auto-generated for project documentation.**
